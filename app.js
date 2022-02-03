@@ -96,6 +96,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
     //create the board
     function createBoard() {
+        /*
+        throu a loop for it is created the table game in base of the array cardArray by
+        adding atributes and event click
+        */
 
         for(let i = 0; i < cardArray.length; i++){
             const card = document.createElement('img');
