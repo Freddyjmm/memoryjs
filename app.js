@@ -143,7 +143,7 @@ document.addEventListener('DOMContentLoaded', () => {
         resultDisplay.textContent = cardsWon.length;
         wrons.textContent = wronsScore;
         if(cardsWon.length === cardArray.length/2){
-            message.innerHTML = 'Congratulations! You Found Them all!' + ' <a href="http://localhost:3000/">Reset</a>';
+            message.innerHTML = 'Congratulations! You Found Them all!' + ' <a href="https://freddyjmm.github.io/memoryjs/">Reset</a>';
         }
     }
 
