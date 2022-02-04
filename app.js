@@ -97,7 +97,7 @@ document.addEventListener('DOMContentLoaded', () => {
     //create the board
     function createBoard() {
         /*
-        throu a loop for it is created the table game in base of the array cardArray by
+        through a loop for it is created the table game in base of the array cardArray by
         adding atributes and event click
         */
 
