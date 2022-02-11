@@ -1,88 +1,57 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const cardArray = [
-        {
-            name:'bulbasaur',
-            img:'images/001.png'
-        },
-        {
-            name:'ivysaur',
-            img:'images/002.png'
-        },
-        {
-            name:'venusaur',
-            img:'images/003.png'
-        },
-        {
-            name:'charmander',
-            img:'images/004.png'
-        },
-        {
-            name:'charmaleon',
-            img:'images/005.png'
-        },
-        {
-            name:'charizard',
-            img:'images/006.png'
-        },
-        {
-            name:'squirtle',
-            img:'images/007.png'
-        },
-        {
-            name:'wartortle',
-            img:'images/008.png'
-        },
-        {
-            name:'blastois',
-            img:'images/009.png'
-        },
-        {
-            name:'bulbasaur',
-            img:'images/001.png'
-        },
-        {
-            name:'ivysaur',
-            img:'images/002.png'
-        },
-        {
-            name:'venusaur',
-            img:'images/003.png'
-        },
-        {
-            name:'charmander',
-            img:'images/004.png'
-        },
-        {
-            name:'charmaleon',
-            img:'images/005.png'
-        },
-        {
-            name:'charizard',
-            img:'images/006.png'
-        },
-        {
-            name:'squirtle',
-            img:'images/007.png'
-        },
-        {
-            name:'wartortle',
-            img:'images/008.png'
-        },
-        {
-            name:'blastois',
-            img:'images/009.png'
-        },
-        {
-            name:'pikachu',
-            img:'images/025.png'
-        },
-        {
-            name:'pikachu',
-            img:'images/025.png'
-        }
-    ];
+    let cardArray = []
 
-    cardArray.sort(() => 0.5 - Math.random())
+    //get pokemons from pokeAPI
+    function getPokemons(){
+
+        /*
+        hacemos una peticion a pokeapi con fetch para obtener un array con pokemones
+        creamos un array vacio y obtenemos un numero random para offset ademas de construir la url
+
+        con fetch hacemos la peticion get, pasamos la respuesta a json, por cada dato obtenido
+        volvemos hacer otra peticion a la url que define cada dato lo volvemos a pasar a json
+        para luego crear un objeto vacio al cual le agregamos el par clave valor name y sprite para
+        finalmente introducirlo en el array pokemons
+        */
+
+        const pokemons = [];
+
+        offset = Math.round(Math.random() * (1118 - 1) + 1);
+
+        const urlApi = `https://pokeapi.co/api/v2/pokemon/?offset=${offset}&limit=10`;
+
+        fetch(urlApi)
+            .then(response => {
+                if(response.ok){
+                    return response.json();
+                }else{
+                    console.log(response.status);
+                }})
+            .then(data => {
+                for(let pokemon of data.results){
+                    fetch(pokemon.url)
+                        .then(response => {
+                            if(response.ok){
+                                return response.json();
+                            }else{
+                                console.log(response.status);
+                            }
+                        })
+                        .then(data => {
+                            const obj = {};
+                            obj['name'] = data.name;
+                            if (data.sprites.front_default){
+                                obj['img'] = data.sprites.front_default;
+                            }else{
+                                obj['img'] = data.sprites.back_default;
+                            }
+                            pokemons.push(obj);
+                        })
+                }
+            })
+            .catch(err => console.log(err));
+            return pokemons;
+    }
 
     var cardsChoosen = [];
     var cardsChoosenId = [];
@@ -171,5 +140,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
     }
 
-    createBoard()
+    cardArray = getPokemons()
+
+    //duplicate and re-order the cardArray after get information from api
+    setTimeout(() =>{
+        cardArray = cardArray.concat(cardArray);
+        cardArray.sort(() => 0.5 - Math.random());
+    },2000)
+
+    //create the board after get information from api
+    setTimeout(() => {
+        createBoard();
+    },2000)
 })
