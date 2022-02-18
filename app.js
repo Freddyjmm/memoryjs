@@ -153,7 +153,19 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
+    const showCards = () => {
+        const cards = document.querySelectorAll('.grid img');
+        cards.forEach(card => {
+            const id = card.getAttribute('data-id');
+            card.setAttribute('src', cardArray[id].img);
+            setTimeout( () => {
+                card.setAttribute('src', 'images/blank.png');
+            },2000);
+        });
+    }
+
     cardArray = getPokemons();
     getReadyCards();
+    setTimeout(showCards,1300);
 
 })
