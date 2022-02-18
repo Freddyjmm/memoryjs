@@ -140,16 +140,20 @@ document.addEventListener('DOMContentLoaded', () => {
 
     }
 
-    cardArray = getPokemons()
+    const getReadyCards =  () => {
+        //wait until cardArray gets information from api
+        if ( cardArray.length > 10 || cardArray.length === 10){
+            //duplicate and re-order the cardArray after get information from api
+            cardArray = cardArray.concat(cardArray);
+            cardArray.sort(() => 0.5 - Math.random());
+            //create the board after get information from api
+            createBoard();
+        }else{
+            setTimeout( getReadyCards, 100 );
+        }
+    }
 
-    //duplicate and re-order the cardArray after get information from api
-    setTimeout(() =>{
-        cardArray = cardArray.concat(cardArray);
-        cardArray.sort(() => 0.5 - Math.random());
-    },2000)
+    cardArray = getPokemons();
+    getReadyCards();
 
-    //create the board after get information from api
-    setTimeout(() => {
-        createBoard();
-    },2000)
 })
