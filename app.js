@@ -58,7 +58,7 @@ document.addEventListener('DOMContentLoaded', () => {
     var cardsWon = [];
     var wronsScore = 0;
 
-    const grid = document.querySelector('.grid');
+    const grid = document.querySelector('#grid');
     const resultDisplay = document.querySelector('#result');
     const message = document.getElementById('message');
     const wrons = document.getElementById('wrons');
@@ -154,7 +154,8 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     const showCards = () => {
-        const cards = document.querySelectorAll('.grid img');
+        //get each card to shows it and them use a timeout to flips it again
+        const cards = document.querySelectorAll('#grid img');
         cards.forEach(card => {
             const id = card.getAttribute('data-id');
             card.setAttribute('src', cardArray[id].img);
