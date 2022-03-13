@@ -161,12 +161,12 @@ document.addEventListener('DOMContentLoaded', () => {
             card.setAttribute('src', cardArray[id].img);
             setTimeout( () => {
                 card.setAttribute('src', 'images/blank.png');
-            },2000);
+            },10000);
         });
     }
 
     cardArray = getPokemons();
     getReadyCards();
-    setTimeout(showCards,1300);
+    setTimeout( setTimeout(showCards,5000),1000 )
 
 })
